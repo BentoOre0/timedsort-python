@@ -176,6 +176,7 @@ def permbogo(args, display=False):
                 print(elem)
             return None
 
+
 @timer
 def builtin(args, display=False):
     args.sort()
