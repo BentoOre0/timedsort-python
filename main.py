@@ -13,10 +13,13 @@ def help():
     print("----itertools")
     print("----functools")
     print("Generation:")
-    print("----gen_ran_int => returns list with random integers, can be stored in variable or directly placed as an argument")
-    print("----arguments are formatted in the following => length,range_start,range_end\n----standard python ranges apply (i.e) not inclusive of ending range value")
+    print(
+        "----gen_ran_int => returns list with random integers, can be stored in variable or directly placed as an argument")
+    print(
+        "----arguments are formatted in the following => length,range_start,range_end\n----standard python ranges apply (i.e) not inclusive of ending range value")
     print("SORTING ALGORITHMS:")
-    print("1) each of the following functions print the time taken\n2) arguments should be list type\n3) kwargs display is used when one wants to see the actual sorted list")
+    print(
+        "1) each of the following functions print the time taken\n2) arguments should be list type\n3) kwargs display is used when one wants to see the actual sorted list")
     print("----bubble => bubble sort")
     print("----selection => selection sort")
     print("----insert => insertion sort")
@@ -31,53 +34,35 @@ def help():
     print("----speed => just shows how much faster builtins are")
     print("Developer: Jeremy Yu")
     print("Conceptual help from: Vince Tiu, Geek for Geeks, Stack Overflow")
+
+
 def timer(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         start = time.perf_counter()
         result = func(*args, **kwargs)
         end = time.perf_counter()
-        print(f"time was: {end-start} seconds")
+        print(f"time was: {end - start} seconds")
         return result
+
     return wrapper
+
 
 def BIGO(args):
     args = args.lower()
-    match args:
-        case "bubble":
-            print("\nbubble sort:")
-            print("BEST: O(n)")
-            print("AVE: O(n^2)")
-            print("WORST: O(n)")
-        case "insert":
-            print("\ninsertion sort:")
-            print("BEST: O(n)")
-            print("AVE: O(n^2)")
-            print("WORST: O(n)")
-        case "selection":
-            print("\nselection sort:")
-            print("BEST: O(n)")
-            print("AVE: O(n^2)")
-            print("WORST: O(n)")
-        case "merge":
-            print("\nmerge sort:")
-            print("BEST: O(n log(n))")
-            print("AVE: O(n log(n))")
-            print("WORST: O(n log(n))")
-        case "heap":
-            print("\nheap sort:")
-            print("BEST: O(n log(n))")
-            print("AVE: O(n log(n))")
-            print("WORST: O(n log(n))")
-        case "quick":
-            print("\nquick sort:")
-            print("BEST: O(n log(n))")
-            print("AVE: O(n log(n))")
-            print("WORST: O(n^2)")
-        case _:
-            print("ERROR sorting method not found")
+    BIG_O_dictionary = {"bubble": ["bubble sort:", "BEST: O(n)", "AVE: O(n^2)", "WORST: O(n)"],
+                        "insert": ['insertion sort:', 'BEST: O(n)', 'AVE: O(n^2)', 'WORST: O(n)'],
+                        "selection": ['selection sort:', 'BEST: O(n)', 'AVE: O(n^2)', 'WORST: O(n)'],
+                        "merge": ['merge sort:', 'BEST: O(n log(n))', 'AVE: O(n log(n))', 'WORST: O(n log(n))'],
+                        "heap": ['heap sort:', 'BEST: O(n log(n))', 'AVE: O(n log(n))', 'WORST: O(n log(n))'],
+                        "quick": ['quick sort:', 'BEST: O(n log(n))', 'AVE: O(n log(n))', 'WORST: O(n^2)']}
+    try:
+        print(*BIG_O_dictionary[args], sep='\n')
+    except:
+        print("ERROR sorting method not found")
 
-def gen_ran_int(length, range1=None, range2=None,display = False):
+
+def gen_ran_int(length, range1=None, range2=None, display=False):
     if range1 is None:
         range1 = 0
     if range2 is None:
@@ -90,8 +75,9 @@ def gen_ran_int(length, range1=None, range2=None,display = False):
     else:
         return array
 
+
 @timer
-def bubble(args,display = False):
+def bubble(args, display=False):
     if display is True:
         print(args)
     swap = True  # flag is true to check whether a swap has occured.
@@ -104,8 +90,10 @@ def bubble(args,display = False):
         # loop repeats
     if display is True:
         print(args)
+
+
 @timer
-def selection(args,display = False):
+def selection(args, display=False):
     if display is True:
         print(args)
     l = len(args)  # prevent unecessary repeated calculations
@@ -119,8 +107,9 @@ def selection(args,display = False):
     if display is True:
         print(args)
 
+
 @timer
-def insert(args,display=False):
+def insert(args, display=False):
     if display is True:
         print(args)
     for i in range(1, len(args)):  # we are going to compare a current element with the element before it
@@ -136,6 +125,7 @@ def insert(args,display=False):
     if display is True:
         print(args)
 
+
 def merge():
     pass
 
@@ -146,8 +136,10 @@ def heap():
 
 def quick():
     pass
+
+
 @timer
-def permbogo(args,display=False):
+def permbogo(args, display=False):
     # CAUTION USE AT YOUR OWN RISK
     for elem in itertools.permutations(args):
         condition = True
@@ -159,10 +151,10 @@ def permbogo(args,display=False):
             if display is True:
                 print(elem)
             return None
+
+
 @timer
-def speed(args,display=False):
+def speed(args, display=False):
     args.sort()
     if display is True:
         print(args)
-
-help()
