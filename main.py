@@ -1,11 +1,21 @@
 import time
 import random
 import itertools
-
+from functools import wraps
 
 # class JSORTING(time,random,itertools):
 #     @staticmethod
 # ^^the plan is a library that allows you to time sorting algorithms for educational purposes
+def timer(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.perf_counter()
+        result = func(*args, **kwargs)
+        end = time.perf_counter()
+        print(f"time was: {end-start} seconds")
+        return result
+    return wrapper
+
 def BIGO(args):
     args = args.lower()
     match args:
@@ -42,19 +52,17 @@ def BIGO(args):
         case _:
             print("ERROR sorting method not found")
 
-
 def help():
     print("gen_ran_int => returns random integer array, args => length,range_start,range_end")
-    print("bubble => returns bubble sort time, args => list of numbers")
-    print("selection => returns selection sort time, args => list of numbers")
-    print("insert => returns insertion sort time, args => list of numbers")
-    print("merge => returns merge sort time, args => list of numbers")
-    print("heap => returns heap sort time, args => list of numbers")
-    print("quick => returns quick sort time, args => list of numbers")
-    print("BIGO => returns BIGO notation for sorting algorithms, args => string name of sorting algorithm")
+    print("bubble => prints bubble sort time, args => list of numbers, kwarg display => prints the array when wanted")
+    print("selection => prints selection sort time, args => list of numbers, kwarg display => prints the array when wanted")
+    print("insert => prints insertion sort time, args => list of numbers, kwarg display => prints the array when wanted")
+    print("merge => prints merge sort time, args => list of numbers, kwarg display => prints the array when wanted")
+    print("heap => prints heap sort time, args => list of numbers, kwarg display => prints the array when wanted")
+    print("quick => prints quick sort time, args => list of numbers, kwarg display => prints the array when wanted")
+    print("BIGO => prints BIGO notation for sorting algorithms, args => string name of sorting algorithm")
 
-
-def gen_ran_int(length, range1=None, range2=None):
+def gen_ran_int(length, range1=None, range2=None,display = False):
     if range1 is None:
         range1 = 0
     if range2 is None:
@@ -62,11 +70,15 @@ def gen_ran_int(length, range1=None, range2=None):
     array = []
     for i in range(length):
         array.append(random.randint(range1, range2))
-    return array
+    if display is True:
+        print(array)
+    else:
+        return array
 
-
-def bubble(args):
-    start = time.time()  # starting time
+@timer
+def bubble(args,display = False):
+    if display is True:
+        print(args)
     swap = True  # flag is true to check whether a swap has occured.
     while swap is True:  # loop continues until no swap occurs anymore
         swap = False  # sets the swap to false
@@ -75,14 +87,12 @@ def bubble(args):
                 args[i], args[i + 1] = args[i + 1], args[i]  # swaps them
                 swap = True  # swap has occured, so it is true now
         # loop repeats
-    print(args)
-
-    # end = time.time() #ending time
-    # return end - start #>>time out
-
-
-def selection(args):
-    start = time.time()  # start time
+    if display is True:
+        print(args)
+@timer
+def selection(args,display = False):
+    if display is True:
+        print(args)
     l = len(args)  # prevent unecessary repeated calculations
     for i in range(l):  # for loop through all elements first, goal => find minimum of subarray
         mindex = i  # sets the minimum index of subarray as the first element
@@ -91,12 +101,13 @@ def selection(args):
                 mindex = j  # reassigns value if new minimum found
         args[i], args[mindex], = args[mindex], args[
             i]  # swaps the minimum of subarray with the first position of subarray
-    end = time.time()
-    return end - start  # >>time out
+    if display is True:
+        print(args)
 
-
-def insert(args):
-    start = time.time()  # start time
+@timer
+def insert(args,display=False):
+    if display is True:
+        print(args)
     for i in range(1, len(args)):  # we are going to compare a current element with the element before it
         hole = args[
             i]  # the hole is the value that is taken out from the array to allow all the other elements to shift
@@ -107,9 +118,8 @@ def insert(args):
             args[j] = args[j - 1]  # shift elements greater than hole 1 to the right
             j -= 1
         args[j] = hole  # hole finds its spot and is inserted
-    end = time.time()
-    return end - start  # >>time out
-
+    if display is True:
+        print(args)
 
 def merge():
     pass
@@ -121,11 +131,9 @@ def heap():
 
 def quick():
     pass
-
-
-def permbogo(args):
+@timer
+def permbogo(args,display=False):
     # CAUTION USE AT YOUR OWN RISK
-    start = time.time()
     for elem in itertools.permutations(args):
         condition = True
         for i in range(len(elem) - 1):
@@ -133,5 +141,6 @@ def permbogo(args):
                 condition = False
                 break
         if condition is True:
-            end = time.time()
-            return end - start  # >>time out
+            if display is True:
+                print(elem)
+            return None
