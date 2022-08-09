@@ -2,10 +2,14 @@ import time
 import random
 import functools
 
+
 # maybe change to PES?
 # class PyEduSort(time,random,functools):
 #     @staticmethod
 # ^^the plan is a library that allows you to time sorting algorithms for educational purposes
+from Tools.scripts.dutree import display
+
+
 def help_me():
     print("This library also inherits from the following built in libraries:")
     print("----time")
@@ -45,7 +49,10 @@ def timer(func):
         elapsed = end - start
         print(f"{func.__name__} sort time was: {elapsed} seconds")
         return result
+
     return wrapper
+
+
 def BIGO(args):
     args = args.lower()
     BIG_O_dictionary = {"bubble": ["bubble sort:", "BEST: O(n)", "AVE: O(n^2)", "WORST: O(n)"],
@@ -59,6 +66,7 @@ def BIGO(args):
     except:
         print("ERROR sorting method not found")
 
+
 def gen_ran_int(length, range1=None, range2=None, display=False):
     if range1 is None:
         range1 = 0
@@ -71,6 +79,7 @@ def gen_ran_int(length, range1=None, range2=None, display=False):
         print(array)
     else:
         return array
+
 
 @timer
 def bubble(args, display=False):
@@ -87,6 +96,7 @@ def bubble(args, display=False):
     if display is True:
         print(args)
 
+
 @timer
 def selection(args, display=False):
     if display is True:
@@ -101,6 +111,7 @@ def selection(args, display=False):
             i]  # swaps the minimum of subarray with the first position of subarray
     if display is True:
         print(args)
+
 
 @timer
 def insert(args, display=False):
@@ -119,10 +130,17 @@ def insert(args, display=False):
     if display is True:
         print(args)
 
+
 @timer
-def merge(args):
-    return _merge(args)
-def _merge(args): #to prevent repeated calling of decorator, a secret second method was created, credit to stack overflow (https://stackoverflow.com/questions/70069317/python-decorating-recursive-function)
+def merge(args, display=False):
+    if display is True:
+        print(args)
+        return _merge(args, display=True)
+    return _merge(args,display =False)
+
+
+def _merge(
+        args, display=False):  # to prevent repeated calling of decorator, a secret second method was created, credit to stack overflow (https://stackoverflow.com/questions/70069317/python-decorating-recursive-function)
     length = len(args)
     if length > 1:
         mid = length // 2  # integer division as indexes can only be integers
@@ -152,6 +170,8 @@ def _merge(args): #to prevent repeated calling of decorator, a secret second met
         while minR < R:  # check right remaining
             args[mainarr] = right[minR]
             minR += 1
+    if display is True:
+        print(args)
 
 def heap():
     pass
