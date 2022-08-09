@@ -1,12 +1,13 @@
 import time
 import random
-import itertools
 import functools
 
-# class JSORTING(time,random,itertools):
+# maybe change to PES?
+# class PyEduSort(time,random,functools):
 #     @staticmethod
 # ^^the plan is a library that allows you to time sorting algorithms for educational purposes
-def help():
+
+def help_me():
     print("This library also inherits from the following built in libraries:")
     print("----time")
     print("----random")
@@ -33,7 +34,8 @@ def help():
     print("----permbogo => hmmm what is this? use at your own risk...")
     print("----speed => just shows how much faster builtins are")
     print("Developer: Jeremy Yu")
-    print("Conceptual help from: Vince Tiu, Geek for Geeks, Stack Overflow")
+    print("Conceptual help from: Vince Tiu, Geek for Geeks, Stack Overflow, mycodeschool - Youtube")
+
 
 
 def timer(func):
@@ -42,10 +44,14 @@ def timer(func):
         start = time.perf_counter()
         result = func(*args, **kwargs)
         end = time.perf_counter()
-        print(f"time was: {end - start} seconds")
+
+        elapsed = end - start
+        print(f"{func.__name__} sort time was: {elapsed} seconds")
         return result
 
     return wrapper
+
+
 
 
 def BIGO(args):
@@ -60,6 +66,7 @@ def BIGO(args):
         print(*BIG_O_dictionary[args], sep='\n')
     except:
         print("ERROR sorting method not found")
+
 
 
 def gen_ran_int(length, range1=None, range2=None, display=False):
@@ -118,7 +125,7 @@ def insert(args, display=False):
         # right once. However, we dont actually delete the hole, it is just an arbitrary variable saved for future reference
         j = i  # inside the while loop we want to iterate indefinitely
         while hole < args[j - 1] and j > 0:  # this is repeated until the hole finds its spot in the array.
-            # the second conditionn is used to prevent negative indexes from messing with the algorithm
+            # the second condition is used to prevent negative indexes from messing with the algorithm
             args[j] = args[j - 1]  # shift elements greater than hole 1 to the right
             j -= 1
         args[j] = hole  # hole finds its spot and is inserted
@@ -126,8 +133,39 @@ def insert(args, display=False):
         print(args)
 
 
-def merge():
-    pass
+@timer
+def merge(args):
+    return _merge(args)
+def _merge(args): #to prevent repeated calling of decorator, a secret second method was created, credit to stack overflow (https://stackoverflow.com/questions/70069317/python-decorating-recursive-function)
+    length = len(args)
+    if length > 1:
+        mid = length // 2  # integer division as indexes can only be integers
+        left = args[:mid]
+        right = args[mid:]
+        _merge(left)
+        _merge(right)
+        # assume left and right arrays are already sorted
+        L = len(left)
+        R = len(right)
+        minL = 0  # minimum of left subarray
+        minR = 0  # minimum of right subarray
+        mainarr = 0  # index of main array before any splitting or merging
+        while minL < L and minR < R:
+            if left[minL] <= right[minR]:  # checks which is smaller minimum between subarrays
+                args[mainarr] = left[minL]  # the current position in main array is set to the minimum
+                minL += 1  # next unpicked position in left array
+            else:
+                args[mainarr] = right[minR]  # the current position in main array is set to the minimum
+                minR += 1  # next unpicked position in right array
+            mainarr += 1
+        # in some cases, 1 subarray may be exhausted first. So we need to check if there are any left
+        while minL < L:  # check left remaining
+            args[mainarr] = left[minL]
+            minL += 1
+            mainarr += 1
+        while minR < R:  # check right remaining
+            args[mainarr] = right[minR]
+            minR += 1
 
 
 def heap():
@@ -140,8 +178,9 @@ def quick():
 
 @timer
 def permbogo(args, display=False):
+    from itertools import permutations
     # CAUTION USE AT YOUR OWN RISK
-    for elem in itertools.permutations(args):
+    for elem in permutations(args):
         condition = True
         for i in range(len(elem) - 1):
             if elem[i] > elem[i + 1]:
@@ -154,7 +193,7 @@ def permbogo(args, display=False):
 
 
 @timer
-def speed(args, display=False):
+def builtin(args, display=False):
     args.sort()
     if display is True:
         print(args)
