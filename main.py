@@ -319,4 +319,3 @@ class TimedSort:
             for i in range(1, len(args)):
                 if args[i] < args[i - 1]:
                     issorted = False
-                break
