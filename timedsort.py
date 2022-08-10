@@ -1,6 +1,6 @@
 def help_me():
     print("TimedSort is a python module made for educational purposes.")
-    print("It possesses 6 sorting algorithms that can be timed and compared easily")
+    print("It poses 6 sorting algorithms that can be timed and compared easily")
     print("\nThis library also uses the other the built in libraries:")
     print("----time")
     print("----random")
