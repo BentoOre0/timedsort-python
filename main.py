@@ -7,12 +7,12 @@ class TimedSort:
         print("----time")
         print("----random")
         print("----functools")
-        print("Generation:")
+        print("\nGeneration:")
         print("----gen_ran_int => returns list with random integers.")
         print("-------- Thus, it can be stored in variable or directly placed as an argument")
         print("----arguments are formatted in the following => length,range_start,range_end")
         print("--------Note: standard python ranges apply (i.e RANGES DO NOT GO TO THE LAST VALUE)")
-        print("SORTING ALGORITHMS:")
+        print("\nSORTING ALGORITHMS:")
         print("--1) each of the following functions print the time taken")
         print("--2) arguments should be list type")
         print("--3) the kwarg display is used when one wants to see the actual sorted list BEFORE AND AFTER sorting")
@@ -20,17 +20,18 @@ class TimedSort:
         print("----selection => selection sort")
         print("----insertion => insertion sort")
         print("----merge => merge sort")
-        print("----heap => heap sort")
+        print("----heap => heap sort, the algorithm used here was made by geek for geeks")
         print("----quick => quick sort")
-        print("Efficiencies:")
+        print("\nComplexities:")
         print("----BIGO => prints BIGO notation for sorting algorithms, args => string name of sorting algorithm")
-        print("Others:")
-        print("----timer => do not touch!, this is a decorator used to time code")
-        print("----permbogo => hmmm what is this? use at your own risk...")
-        print("----miracle => hmmm what is this? use at your own risk...")
+        print("\nOthers:")
+        print("----timer => this is a decorator used to time code")
+        print("----heapify => a function to create a heap structure from an array, uses recursion.")
+        print("----permbogo => permutational bogo sort: algorithm iterates over each permutation until array is sorted")
+        print("----miracle => miracle sort: an endless prayer for a miracle to stop somehow sort the array")
         print("----builtin => just shows how much faster builtins are")
-        print("Developer: Jeremy Yu")
-        print("Conceptual help from: Vince Tiu, Geek for Geeks, Stack Overflow, mycodeschool - Youtube")
+        print("\nDeveloper: Jeremy Yu")
+        print("Appendices: Vince Tiu, Geek for Geeks, Stack Overflow, mycodeschool - Youtube, Abdul Bari")
 
     @staticmethod
     def timer(func):
@@ -188,13 +189,87 @@ class TimedSort:
         if display is True:
             print(args)
 
+    # HEAPSORT CREDIT goes to geek for geeks, I am not proficient at binary trees yet.
     @staticmethod
-    def heap():
-        pass
+    def heapify(arr, N, i):
+        largest = i  # Initialize largest as root
+        l = 2 * i + 1  # left = 2*i + 1
+        r = 2 * i + 2  # right = 2*i + 2
+
+        # See if left child of root exists and is
+        # greater than root
+        if l < N and arr[largest] < arr[l]:
+            largest = l
+
+        # See if right child of root exists and is
+        # greater than root
+        if r < N and arr[largest] < arr[r]:
+            largest = r
+
+        # Change root, if needed
+        if largest != i:
+            arr[i], arr[largest] = arr[largest], arr[i]  # swap
+
+            # Heapify the root.
+            TimedSort.heapify(arr, N, largest)
 
     @staticmethod
-    def quick():
-        pass
+    @timer
+    def heap(array, clone=True, display=False):
+        if clone is True:
+            arr = array.copy()
+        else:
+            arr = array
+        if display is True:
+            print(array)
+
+        # The main function to sort an array of given size
+        N = len(arr)
+
+        # Build a maxheap.
+        for i in range(N // 2 - 1, -1, -1):
+            TimedSort.heapify(arr, N, i)
+
+        # One by one extract elements
+        for i in range(N - 1, 0, -1):
+            arr[i], arr[0] = arr[0], arr[i]  # swap
+            TimedSort.heapify(arr, i, 0)
+        if display is True:
+            print(arr)
+        print("CREDIT TO GEEK FOR GEEKS.")
+
+    @staticmethod
+    def partition(array, low, high):
+        pivot = array[low]
+        i = low + 1
+        j = high
+        while True:
+            while i <= j and array[j] >= pivot:
+                j -= 1
+            # stops until it finds something bigger than the pivot
+            while i <= j and array[i] <= pivot:
+                i += 1  # stops until it finds something lower than the pivot
+            if i <= j:
+                array[i], array[j] = array[j], array[i]
+            else:
+                break
+        array[low], array[j] = array[j], array[low]  # swap once all other elements are sorted
+        return j  # returns the position of the pivot
+
+    @staticmethod
+    @timer
+    def quick(args, low=0, high=None):
+        if high is None:
+            high = len(args) - 1
+        return TimedSort._quick(args, low, high)
+
+    @staticmethod
+    def _quick(args, low=0, high=None):
+        if low >= high:
+            return
+        j = TimedSort.partition(args, low, high)  # sorts the elements and returns position of pivot
+        TimedSort._quick(args, low, j - 1)
+        TimedSort._quick(args, j + 1, high)
 
     @staticmethod
     @timer
@@ -244,4 +319,3 @@ class TimedSort:
             for i in range(1, len(args)):
                 if args[i] < args[i - 1]:
                     issorted = False
-                    break
