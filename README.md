@@ -97,6 +97,35 @@ outputs:
 
 This actually changes the list.
 
+## Complexities
+One may call on the BIGO function to see an algorithm's time complexity!
+
+e.g.
+
+`ts.BIGO("bubble")`
+
+`ts.BIGO("MeRge")`
+
+It is not case sensitive!
+
+outputs:
+
+`bubble sort:`
+
+`BEST: O(n)`
+
+`AVE: O(n^2)`
+
+`WORST: O(n)`
+
+`merge sort:`
+
+`BEST: O(n log(n))`
+
+`AVE: O(n log(n))`
+
+`WORST: O(n log(n))`
+
 ## Appendices:
 
 - Vince Tiu
@@ -104,3 +133,5 @@ This actually changes the list.
 - Stack Overflow
 - mycodeschool
 - Abdul Bari
+
+Hope you enjoy!
