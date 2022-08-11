@@ -25,7 +25,9 @@ timedsort allows you to time the following sorting algorithms
 - generate a list of integers we can use the gen_ran_int() function!
 - parameters format: (length, range1, range2)
 - if range1 and range2 are ommitted, the range would automatically from 0 to twice the length
+
 e.g.
+
 `import timedsort as ts`
 
 `ts.help_me()'
