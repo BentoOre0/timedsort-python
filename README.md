@@ -30,8 +30,6 @@ e.g.
 
 `import timedsort as ts`
 
-`ts.help_me()'
-
 `arr = ts.gen_ran_int(10)`
 
 `#[7, 24, 35, 28, 36, 37, 2, 10, 20, 0, 18, 28, 0, 0, 34, 30, 8, 19, 6, 29]`
