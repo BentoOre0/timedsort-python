@@ -1,5 +1,4 @@
 # timedsort-python
-[Timedsortlogopng](https://user-images.githubusercontent.com/108052776/184116014-3b9cbbd5-71e9-4ff9-b3b1-dcbb3f94aa9e.png)
 ## About
 timedsort is a python module that allows new coders to see the time differences in a variety of sorting algorithms. Although many people use languages such as C++ for algorithmic design, it is notorious for having a steep learning curve. Python on the otherhand is more beginner friendly. With that in mind, this module provides the ability for people to see the relative differences of sorting algorithm speeds through time.
 
