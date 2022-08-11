@@ -19,7 +19,7 @@ timedsort allows you to time the following sorting algorithms
 4. merge sort
 5. heap sort
 6. quick sort
-7. check help_me() for the meme sorts!
+7. call help_me() for the meme sorts!
 
 ## How to use
 - generate a list of integers we can use the gen_ran_int() function!
