@@ -1,45 +1,61 @@
+from time import perf_counter
+from functools import wraps
+from random import randint
+
+
 def help_me():
-    print("timedsort is a python module made for educational purposes.")
-    print("It poses 6 sorting algorithms that can be timed and compared easily")
-    print("\nThis library also uses the other the built in libraries:")
-    print("----time")
-    print("----random")
-    print("----functools")
-    print("\nGeneration:")
+    print("================================================================================================")
+    print("About:")
+    print("timedsort is a python module made for educational purposes")
+    print("it has 6 sorting algorithms that can be timed and compared easily")
+    print("================================================================================================")
+    print("This module calls the following built in libraries:")
+    print("----time: perf_counter")
+    print("----random: randint")
+    print("----functools: wraps")
+    print("----itertools: permutations (bogo sort)")
+    print("================================================================================================")
+    print("Generation:")
     print("----gen_ran_int => returns list with random integers.")
-    print("-------- Thus, it can be stored in variable or directly placed as an argument")
     print("----arguments are formatted in the following => length,range_start,range_end")
-    print("--------Note: standard python ranges apply (i.e RANGES DO NOT GO TO THE LAST VALUE)")
-    print("\nSORTING ALGORITHMS:")
+    print("----standard python ranges apply (i.e RANGES DO NOT GO TO THE LAST VALUE)")
+    print("================================================================================================")
+    print("SORTING ALGORITHMS:")
     print("--1) each of the following functions print the time taken")
     print("--2) arguments should be list type")
-    print("--3) the kwarg display is set to true to print actual the list BEFORE AND AFTER sorting")
-    print("----default value is False")
-    print("--4) the kwarg clone is used if you want to mutate the list. To change the list, set to False")
-    print("----default value is True")
+    print("--3) the key word out => display list before and after sorting, default is True")
+    print("----if set to False only time is displayed. This is faster.")
+    print("--methods:")
     print("----bubble => bubble sort")
     print("----selection => selection sort")
     print("----insertion => insertion sort")
     print("----merge => merge sort")
     print("----heap => heap sort, the algorithm used here was made by geek for geeks")
     print("----quick => quick sort")
-    print("\nComplexities:")
+    print("================================================================================================")
+    print("Complexities:")
     print("----BIGO => prints BIGO notation for sorting algorithms, args => string name of sorting algorithm")
-    print("\nOthers:")
+    print("================================================================================================")
+    print("Others:")
+    print("--using these methods as arguments for BIGO will result in a printed error message")
     print("----timer => this is a decorator used to time code")
     print("----heapify => a function to create a heap structure from an array, uses recursion.")
-    print("----permbogo => permutational bogo sort: algorithm iterates over each permutation until array is sorted")
-    print("----miracle => miracle sort: an endless prayer for a miracle to stop somehow sort the array")
+    print("----bogo => bogo sort (meme): algorithm iterates over each permutation until array is sorted")
+    print("----miracle => miracle sort (meme): an endless prayer for a miracle to stop somehow sort the array")
     print("----builtin => just shows how much faster builtins are")
     print("----partition => used to partition and sort array in quick sort")
-    print("\nDeveloper: Jeremy Yu")
+    print("================================================================================================")
+    print("Notes:")
+    print("----There are also functions with underscore behind them. They are the raw algorithms")
+    print("----Calling the these types of  function will mutate the actual list argument and not print the time taken.")
+    print("----using these functions as arguments for BIGO will result in a printed error message")
+    print("================================================================================================")
+    print("Developer: Jeremy Yu")
     print("Appendices: Vince Tiu, Geek for Geeks, Stack Overflow, mycodeschool - Youtube, Abdul Bari")
+    print("================================================================================================")
 
 
 def timer(func):
-    from time import perf_counter
-    from functools import wraps
-
     @wraps(func)
     def wrapper(*args, **kwargs):
         start = perf_counter()
@@ -67,8 +83,7 @@ def BIGO(args):
         print("ERROR sorting method not found")
 
 
-def gen_ran_int(length, range1=None, range2=None, display=False):
-    from random import randint
+def gen_ran_int(length, range1=None, range2=None):
     if range1 is None:
         range1 = 0
     if range2 is None:
@@ -76,20 +91,20 @@ def gen_ran_int(length, range1=None, range2=None, display=False):
     array = []
     for i in range(length):
         array.append(randint(range1, range2))
-    if display is True:
-        print(array)
-    else:
-        return array
+    return array
 
 
 @timer
-def bubble(array, clone=True, display=False):
-    if clone is True:
-        args = array.copy()  # we create a copy of the array, allows us to reuse array
-    else:
-        args = array  # this will change the actual list
-    if display is True:
+def bubble(array, out=True):
+    if out is True:
         print(array)
+    args = array.copy()  # we create a copy of the array, allows us to reuse array
+    _bubble(args)  # this is the raw algorithm
+    if out is True:
+        print(args)
+
+
+def _bubble(args):  # raw algorithm
     swap = True
     while swap is True:
         swap = False
@@ -98,18 +113,19 @@ def bubble(array, clone=True, display=False):
                 args[i], args[i + 1] = args[i + 1], args[i]  # swaps them
                 swap = True  # swap has occurred
         # loop repeats
-    if display is True:
-        print(args)
 
 
 @timer
-def selection(array, clone=True, display=False):
-    if clone is True:
-        args = array.copy()
-    else:
-        args = array
-    if display is True:
+def selection(array, out=True):
+    if out is True:
         print(array)
+    args = array.copy()
+    _selection(args)
+    if out is True:
+        print(args)
+
+
+def _selection(args):
     length = len(args)  # prevent unnecessary repeated calculations
     for i in range(length):  # for loop through all elements to  find min of subarray
         mindex = i  # sets minimum index of subarray as the first element
@@ -118,18 +134,19 @@ def selection(array, clone=True, display=False):
                 mindex = j  # reassigns value if new minimum found
         args[i], args[mindex], = args[mindex], args[
             i]  # swaps the minimum of subarray with the first position of subarray
-    if display is True:
-        print(args)
 
 
 @timer
-def insertion(array, clone=True, display=False):
-    if clone is True:
-        args = array.copy()
-    else:
-        args = array
-    if display is True:
+def insertion(array, out=True):
+    if out is True:
         print(array)
+    args = array.copy()
+    _insertion(args)
+    if out is True:
+        print(args)
+
+
+def _insertion(args):
     for i in range(1, len(args)):  # going to compare a current element with element before it
         hole = args[i]  # hole is value taken out from the array to allow all the other elements to shift
         # don't actually delete the hole
@@ -139,25 +156,19 @@ def insertion(array, clone=True, display=False):
             args[j] = args[j - 1]  # shift elements greater than hole 1 to the right
             j -= 1
         args[j] = hole  # hole finds its spot and is inserted
-    if display is True:
-        print(args)
 
 
 @timer
-def merge(array, clone=True, display=False):
-    if clone is True:
-        args = array.copy()
-    else:
-        args = array
-    if display is True:
+def merge(array, out=True):
+    args = array.copy()
+    if out is True:
         print(array)
-        return _merge(args, display=True)
-    return _merge(args, display=False)
+    _merge(args)
+    if out is True:
+        print(args)
 
 
-def _merge(args,
-           display=False):  # to prevent repeated calling of decorator, credit to stack overflow
-    # (https://stackoverflow.com/questions/70069317/python-decorating-recursive-function)
+def _merge(args):
     length = len(args)
     if length > 1:
         mid = length // 2  # integer division as indexes can only be integers
@@ -188,8 +199,6 @@ def _merge(args,
             args[mainarr] = right[minR]
             minR += 1
             mainarr += 1
-    if display is True:
-        print(args)
 
 
 # HEAPSORT CREDIT goes to geek for geeks, I am not proficient at binary trees yet.
@@ -217,14 +226,17 @@ def heapify(arr, N, i):
 
 
 @timer
-def heap(array, clone=True, display=False):
-    if clone is True:
-        arr = array.copy()
-    else:
-        arr = array
-    if display is True:
+def heap(array, out=True):
+    if out is True:
         print(array)
+    arr = array.copy()
+    _heap(arr)
+    if out is True:
+        print(arr)
+    print("CREDIT TO GEEK FOR GEEKS.")
 
+
+def _heap(arr):
     # The main function to sort an array of given size
     N = len(arr)
 
@@ -236,9 +248,6 @@ def heap(array, clone=True, display=False):
     for i in range(N - 1, 0, -1):
         arr[i], arr[0] = arr[0], arr[i]  # swap
         heapify(arr, i, 0)
-    if display is True:
-        print(arr)
-    print("CREDIT TO GEEK FOR GEEKS.")
 
 
 def partition(array, low, high):
@@ -260,17 +269,14 @@ def partition(array, low, high):
 
 
 @timer
-def quick(array, low=0, high=None, clone=True, display=False):
-    if clone is True:
-        args = array.copy()
-    else:
-        args = array
-    if display is True:
+def quick(array, low=0, high=None, out=True):
+    if out is True:
         print(array)
+    args = array.copy()
     if high is None:
         high = len(args) - 1
     _quick(args, low, high)
-    if display is True:
+    if out is True:
         print(args)
 
 
@@ -283,15 +289,18 @@ def _quick(args, low=0, high=None):
 
 
 @timer
-def permbogo(array, clone=True, display=False):
-    if clone is True:
-        args = array.copy()
-    else:
-        args = array
-    if display is True:
+def bogo(array, out=True):
+    if out is True:
         print(array)
-    from itertools import permutations
+    args = array.copy()
+    _bogo(args)
+    if out is True:
+        print(args)
+
+
+def _bogo(args):
     # CAUTION USE AT YOUR OWN RISK
+    from itertools import permutations
     for elem in permutations(args):
         condition = True
         for i in range(len(elem) - 1):
@@ -299,30 +308,30 @@ def permbogo(array, clone=True, display=False):
                 condition = False
                 break
         if condition is True:
-            if display is True:
-                print(list(elem))
-            return None
+            return
 
 
 @timer
-def builtin(array, clone=True, display=False):
-    if clone is True:
-        args = array.copy()
-    else:
-        args = array
-    if display is True:
+def builtin(array, out=True):
+    if out is True:
         print(array)
+    args = array.copy()
     args.sort()
-    if display is True:
+    if out is True:
         print(args)
 
 
 @timer
-def miracle(array, clone=True, display=False):
-    if clone is True:
-        args = array.copy()
-    else:
-        args = array
+def miracle(array, out=True):
+    if out is True:
+        print(array)
+    args = array.copy()
+    _miracle(args)
+    if out is True:
+        print(args)
+
+
+def _miracle(args):
     issorted = False
     while issorted is False:
         issorted = True
