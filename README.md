@@ -73,7 +73,7 @@ outputs:
 `quick sort time was: 4.939999780617654e-05 seconds`
 
 ## Notes
-If you would like to mutate the actual list, add an underscore before the function you call! This calls the raw algorithm used to sort the list! As such, make sure no other parameter besides the list in question is added as a parameter. It also does't display the time taken.
+If you would like to mutate the actual list, add an underscore before the function you call! This calls the raw algorithm used to sort the list! Make sure that the argument placed for these functions is 1 list. It also does't display the time taken.
 
 suppose we have the following code:
 
