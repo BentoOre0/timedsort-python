@@ -1,4 +1,19 @@
-# timedsorts-python
+Metadata-Version: 2.1
+Name: timedsort
+Version: 0.0.1
+Summary: my first package that focuses on sorting algorithms
+Home-page: https://github.com/BentoOre0/timedsort-python
+Author: Jeremy Yu
+Author-email: jeremy.yu@britishschoolmanila.org
+Project-URL: Bug Tracker, https://github.com/pypa/sampleproject/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# timedsort-python
 ## About
 timedsort is a python module that allows new coders to see the time differences in a variety of sorting algorithms. Although many people use languages such as C++ for algorithmic design, it is notorious for having a steep learning curve. Python on the otherhand is more beginner friendly. With that in mind, this module provides the ability for people to see the relative differences of sorting algorithm speeds through time.
 
@@ -28,7 +43,7 @@ timedsort allows you to time the following sorting algorithms
 
 e.g.
 
-`import timedsorts as ts`
+`import timedsort as ts`
 
 `arr = ts.gen_ran_int(10)`
 
