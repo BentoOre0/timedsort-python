@@ -6,9 +6,9 @@ from random import randint
 def help_me():
     print("================================================================================================")
     print("About:")
-    print("timedsorts is a python module made for educational purposes")
+    print("timedsort is a python module made for educational purposes")
     print("it has 6 sorting algorithms that can be timed and compared easily")
-    print("This is version 0.0.2 of timedsort")
+    print("This is version 0.0.3 of timedsort")
     print("================================================================================================")
     print("This module calls the following built in libraries:")
     print("----time: perf_counter")
