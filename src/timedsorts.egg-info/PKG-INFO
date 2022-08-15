@@ -13,7 +13,7 @@ Requires-Python: >=3.6
 Description-Content-Type: text/markdown
 License-File: LICENSE
 
-# timedsort-python
+# timedsorts-python
 ## About
 timedsort is a python module that allows new coders to see the time differences in a variety of sorting algorithms. Although many people use languages such as C++ for algorithmic design, it is notorious for having a steep learning curve. Python on the otherhand is more beginner friendly. With that in mind, this module provides the ability for people to see the relative differences of sorting algorithm speeds through time.
 
@@ -43,7 +43,7 @@ timedsort allows you to time the following sorting algorithms
 
 e.g.
 
-`import timedsort as ts`
+`import timedsorts as ts`
 
 `arr = ts.gen_ran_int(10)`
 
