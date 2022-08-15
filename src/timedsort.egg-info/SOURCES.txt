@@ -1,9 +1,0 @@
-LICENSE
-README.md
-pyproject.toml
-setup.cfg
-src/timedsort/timedsort.py
-src/timedsort.egg-info/PKG-INFO
-src/timedsort.egg-info/SOURCES.txt
-src/timedsort.egg-info/dependency_links.txt
-src/timedsort.egg-info/top_level.txt
